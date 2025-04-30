@@ -33,7 +33,7 @@ services:
         fromService: # Get the URL from the backend service defined above
           type: web
           name: fog-backend
-          property: url # Use the internal or external URL provided by Render
+          property: hostport # CHANGED: Trying 'hostport' based on the error message
       # Add other frontend environment variables if needed, like NODE_VERSION
       # - key: NODE_VERSION
       #   value: 18 # Or your desired Node version
