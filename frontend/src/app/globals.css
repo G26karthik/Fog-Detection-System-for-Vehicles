@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 224, 224, 224; /* Light text for dark bg */
+  --background-start-rgb: 26, 26, 46; /* Dark bg start */
+  --background-end-rgb: 40, 42, 54; /* Dark bg end */
+
+  /* --- Custom Creative Theme --- */
+  --primary-color: 79, 70, 229; /* Indigo */
+  --secondary-color: 236, 72, 153; /* Pink */
+  --accent-color: 52, 211, 153; /* Emerald */
+  --background-start-rgb: 29, 35, 42; /* Dark Slate */
+  --background-end-rgb: 45, 55, 65; /* Lighter Slate */
+  --foreground-rgb: 229, 231, 235; /* Light Gray */
+  --card-bg-rgb: 55, 65, 81; /* Gray Blue */
+  --card-border-rgb: 75, 85, 99;
+  --button-glow-start: rgba(79, 70, 229, 0.4);
+  --button-glow-end: rgba(236, 72, 153, 0.4);
+  --status-fog-glow: rgba(236, 72, 153, 0.6);
+  --status-clear-glow: rgba(52, 211, 153, 0.6);
+}
+
+/* Optional: Dark mode adjustments if needed, but base is dark now */
+/*
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+*/
+
+body {
+  color: rgb(var(--foreground-rgb));
+  /* Apply a default dark gradient background */
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  /* Use the custom dark-bg color */
+  /* background-color: theme('colors.dark-bg'); */
+  min-height: 100vh; /* Ensure background covers full height */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .button-glow {
+    box-shadow: 0 0 15px 5px var(--button-glow-start), 0 0 30px 10px var(--button-glow-end);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  .button-glow:hover {
+     box-shadow: 0 0 25px 8px var(--button-glow-start), 0 0 40px 15px var(--button-glow-end);
+  }
+  .status-glow-fog {
+     text-shadow: 0 0 10px var(--status-fog-glow), 0 0 20px var(--status-fog-glow);
+  }
+   .status-glow-clear {
+     text-shadow: 0 0 10px var(--status-clear-glow), 0 0 20px var(--status-clear-glow);
+  }
+
+  /* Simple 3D tilt effect on hover */
+  .tilt-card {
+    transition: transform 0.3s ease-out;
+    transform-style: preserve-3d;
+  }
+  .tilt-card:hover {
+    transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) scale(1.05);
+  }
+}

@@ -1,0 +1,41 @@
+\
+# render.yaml
+# Defines services for the Fog Detection System monorepo on Render.
+
+services:
+  # Backend Service (FastAPI)
+  - type: web         # Web service that listens for HTTP requests
+    name: fog-backend # Service name on Render
+    env: python       # Environment type
+    rootDir: backend  # Root directory for this service
+    buildCommand: |   # Commands to build the service
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT # Command to start the service ($PORT is injected by Render)
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11 # Specify a Python version Render supports
+      # Add other backend environment variables here if needed (e.g., MONGO_URI)
+      # - key: MONGO_URI
+      #   sync: false # Keep sensitive variables out of sync if possible
+
+  # Frontend Service (Next.js Static Site)
+  - type: static    # Static site service
+    name: fog-frontend # Service name on Render
+    rootDir: frontend # Root directory for this service
+    buildCommand: |   # Commands to build the service
+      npm install --force # Install dependencies
+      npm run build     # Build the Next.js app (assuming default 'next build')
+    # For static sites, Render automatically serves the 'out' or '.next/static' directory.
+    # If using default 'next build', Render handles serving. If using 'next export', specify the 'out' directory:
+    # staticPublishPath: out
+    envVars:
+      # Important: Make the backend URL available to the frontend build process
+      - key: NEXT_PUBLIC_BACKEND_URL
+        fromService: # Get the URL from the backend service defined above
+          type: web
+          name: fog-backend
+          property: url # Use the internal or external URL provided by Render
+      # Add other frontend environment variables if needed
+      # - key: NEXT_PUBLIC_SOME_OTHER_VAR
+      #   value: your_value
