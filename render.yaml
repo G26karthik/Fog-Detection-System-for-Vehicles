@@ -19,16 +19,15 @@ services:
       # - key: MONGO_URI
       #   sync: false # Keep sensitive variables out of sync if possible
 
-  # Frontend Service (Next.js Static Site)
-  - type: static    # Static site service
+  # Frontend Service (Next.js)
+  - type: web         # CHANGED: Use 'web' for Next.js applications
     name: fog-frontend # Service name on Render
+    env: node         # CHANGED: Specify Node.js environment
     rootDir: frontend # Root directory for this service
     buildCommand: |   # Commands to build the service
       npm install --force # Install dependencies
       npm run build     # Build the Next.js app (assuming default 'next build')
-    # For static sites, Render automatically serves the 'out' or '.next/static' directory.
-    # If using default 'next build', Render handles serving. If using 'next export', specify the 'out' directory:
-    # staticPublishPath: out
+    startCommand: npm start # ADDED: Standard command to start a Next.js production server
     envVars:
       # Important: Make the backend URL available to the frontend build process
       - key: NEXT_PUBLIC_BACKEND_URL
@@ -36,6 +35,6 @@ services:
           type: web
           name: fog-backend
           property: url # Use the internal or external URL provided by Render
-      # Add other frontend environment variables if needed
-      # - key: NEXT_PUBLIC_SOME_OTHER_VAR
-      #   value: your_value
+      # Add other frontend environment variables if needed, like NODE_VERSION
+      # - key: NODE_VERSION
+      #   value: 18 # Or your desired Node version
