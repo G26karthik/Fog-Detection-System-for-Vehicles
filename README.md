@@ -1,9 +1,6 @@
-\
 # Fog4Det - Real-time Vehicle Fog Detection System
 
-**Version:** 1.0.0
-
-**Authors:** [Your Name/Team Name]
+**Authors:** [G Karthik,G Sai Dhriti,B Manogna]
 
 ---
 
@@ -194,35 +191,18 @@ You need to run both the backend and frontend servers simultaneously.
 
 ---
 
-## Deployment (Render)
-
-This project is configured for easy deployment to [Render](https://render.com/) using the included `render.yaml` blueprint.
-
-1.  **Push to GitHub:** Ensure your code, including the `.gitignore` and `render.yaml` files, is pushed to a GitHub repository.
-2.  **Create Render Account:** Sign up or log in to Render.
-3.  **Create Blueprint Instance:**
-    *   Go to "Blueprints" in your Render dashboard and click "New Blueprint Instance".
-    *   Connect your GitHub account and select the repository containing this project.
-    *   Render will automatically detect and use the `render.yaml` file.
-    *   Review the service details (names, build/start commands).
-    *   (Optional) Add any necessary environment variables (like `MONGO_URI` for the backend) directly in the Render service settings if you didn't hardcode them or use `.env` (not recommended for secrets). The `NEXT_PUBLIC_BACKEND_URL` for the frontend will be automatically injected based on the `render.yaml` configuration.
-    *   Click "Create Blueprint Instance".
-4.  **Deployment:** Render will clone your repository, build both services according to the `render.yaml` instructions, and deploy them. The frontend will be available at its Render URL, automatically configured to communicate with the backend service.
-
----
-
 ## Usage
 
-Once deployed or running locally:
+Once running locally:
 
 ### Developer View
 
-*   Access: `http://<your-render-frontend-url>/` or `http://localhost:3000/`
+*   Access:  `http://localhost:3000/`
 *   Features: Live camera feed, real-time detection metrics, histogram, status messages, and threshold sliders for tuning.
 
 ### Driver View
 
-*   Access: `http://<your-render-frontend-url>/driver` or `http://localhost:3000/driver`
+*   Access: `http://localhost:3000/driver`
 *   Features: Simplified display showing fog intensity (Clear/Light/Heavy) with icons, color-coding, and clear driving advice. Includes the live camera feed.
 
 ---
